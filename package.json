@@ -1,0 +1,51 @@
+{
+  "name": "coreui-vue-chartjs",
+  "description": "Vue component wrapper for chart.js",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "vue-cli-service build --target lib --name coreui-vue-chartjs ./src/index.js",
+    "lint": "vue-cli-service lint",
+    "test": "vue-cli-service test:unit"
+  },
+  "dependencies": {
+    "@coreui/coreui": "^2.1.3",
+    "@coreui/coreui-plugin-chartjs-custom-tooltips": "../coreui-plugin-chartjs-custom-tooltips",
+    "chart.js": "^2.7.3",
+    "core-js": "^2.6.5",
+    "vue": "^2.6.6"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.5.0",
+    "@vue/cli-plugin-eslint": "^3.5.0",
+    "@vue/cli-service": "^3.5.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
