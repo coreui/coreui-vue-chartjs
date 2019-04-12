@@ -3,6 +3,7 @@
   "description": "Vue component wrapper for chart.js",
   "version": "0.1.0",
   "license": "MIT",
+  "main": "src/index.js",
   "scripts": {
     "build": "vue-cli-service build --target lib --name coreui-vue-chartjs ./src/index.js",
     "lint": "vue-cli-service lint",
