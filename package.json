@@ -1,5 +1,5 @@
 {
-  "name": "coreui-vue-chartjs",
+  "name": "@coreui/coreui-vue-chartjs",
   "description": "Vue component wrapper for chart.js",
   "version": "0.1.0",
   "license": "MIT",
