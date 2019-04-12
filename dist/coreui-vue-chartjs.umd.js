@@ -34487,10 +34487,8 @@ function CustomTooltips(tooltipModel) {
 // CONCATENATED MODULE: ./node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/js/index.js
 
 const js_customTooltips = custom_tooltips
-//TODO: camel-case
+// TODO: camel-case
 
-
-/* harmony default export */ var js = (js_customTooltips);
 
 // CONCATENATED MODULE: ./src/generateChartComponent.js
 
