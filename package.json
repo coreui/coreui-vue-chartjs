@@ -10,7 +10,7 @@
     "test": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@coreui/coreui": "^2.1.3",
+    "@coreui/coreui": "3.0.0-alpha.12",
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.3.0",
     "chart.js": "^2.7.3",
     "core-js": "^2.6.5",

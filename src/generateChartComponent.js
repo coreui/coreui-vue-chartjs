@@ -118,7 +118,7 @@ export default function generateChartComponent (name, type) {
       return h(
         'div',
         {
-          staticClass: 'position-relative w-100'
+          staticClass: 'c-position-relative c-w-100'
         },
         [
           h(
