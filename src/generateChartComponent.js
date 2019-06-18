@@ -1,5 +1,4 @@
 import Chart from 'chart.js'
-import { deepObjectsMerge } from '@coreui/coreui/dist/js/coreui-utilities'
 import { customTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips'
 
 export default function generateChartComponent (name, type) {

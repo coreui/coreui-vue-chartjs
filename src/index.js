@@ -22,7 +22,7 @@ const CoreuiVueCharts = {
       CChartBar, CChartLine, CChartDoughnut,
       CChartRadar, CChartPie,CChartPolarArea
     ]) {
-      Vue.component(component, Components[component])
+      Vue.component(component, component)
     }
   }
 }
