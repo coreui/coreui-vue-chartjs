@@ -18,12 +18,12 @@ export {
 
 const CoreuiVueCharts = {
   install (Vue) {
-    for (let component in [
-      CChartBar, CChartLine, CChartDoughnut,
-      CChartRadar, CChartPie,CChartPolarArea
-    ]) {
-      Vue.component(component, component)
-    }
+    Vue.component('CChartBar', CChartBar)
+    Vue.component('CChartLine', CChartLine)
+    Vue.component('CChartDoughnut', CChartDoughnut)
+    Vue.component('CChartRadar', CChartRadar)
+    Vue.component('CChartPie', CChartPie)
+    Vue.component('CChartPolarArea', CChartPolarArea)
   }
 }
 
