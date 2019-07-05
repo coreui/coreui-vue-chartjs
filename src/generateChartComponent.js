@@ -31,7 +31,7 @@ export default function generateChartComponent (name, type) {
         const emptyLabels = Array(this.datasets[0].data.length).fill('')
 
         if (this.labels === 'indexes') {
-          return emptyLabels.map((u, i) => i)
+          return emptyLabels.map((u, i) => i + 1)
         } else if (this.labels === 'months') {
           return emptyLabels.map((u, i) => this.$options.months[i % 12])
         }
