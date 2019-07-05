@@ -19,7 +19,8 @@ export default function generateChartComponent (name, type) {
     },
     computed: {
       safeId () {
-        return this._uid
+        const key = () => Math.random().toString(36).replace('0.', '')
+        return '__safe_id__' + key() + key()
       },
       computedDatasets () {
         return this.datasets
