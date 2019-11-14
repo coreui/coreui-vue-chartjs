@@ -19,8 +19,9 @@ export default function generateChartComponent (name, type) {
     },
     computed: {
       safeId () {
+        // as long as this._uid() works there is no need to generate the key
         const key = () => Math.random().toString(36).replace('0.', '')
-        return '__safe_id__' + key() + key()
+        return '__safe_id__' + this._uid || key()
       },
       computedDatasets () {
         return this.datasets
@@ -117,9 +118,6 @@ export default function generateChartComponent (name, type) {
     render (h) {
       return h(
         'div',
-        {
-          staticClass: 'c-position-relative c-w-100'
-        },
         [
           h(
             'canvas', {
