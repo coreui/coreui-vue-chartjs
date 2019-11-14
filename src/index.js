@@ -1,11 +1,11 @@
-import generateChartComponent from './generateChartComponent'
+import Chart from './Chart'
 
-const CChartBar = generateChartComponent('CChartBar', 'bar')
-const CChartLine = generateChartComponent('CChartLine', 'line')
-const CChartDoughnut = generateChartComponent('CChartDoughnut', 'doughnut')
-const CChartRadar = generateChartComponent('CChartRadar', 'radar')
-const CChartPie = generateChartComponent('CChartPie', 'pie')
-const CChartPolarArea = generateChartComponent('CChartPolarArea', 'polarArea')
+const CChartBar = Object.assign({}, Chart, { name: 'CChartBar', type: 'bar' })
+const CChartLine = Object.assign({}, Chart, { name: 'CChartLine', type: 'line' })
+const CChartDoughnut = Object.assign({}, Chart, { name: 'CChartDoughnut', type: 'doughnut' })
+const CChartRadar = Object.assign({}, Chart, { name: 'CChartRadar', type: 'radar' })
+const CChartPie = Object.assign({}, Chart, { name: 'CChartPie', type: 'pie' })
+const CChartPolarArea = Object.assign({}, Chart, { name: 'CChartPolarArea', type: 'polarArea' })
 
 export {
   CChartBar,
