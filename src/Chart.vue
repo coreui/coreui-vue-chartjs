@@ -46,30 +46,31 @@ export default {
       }
     },
     customTooltips() {
-      if (!this.options || !this.options.tooltips) {
-        return {
-          tooltips: {
-            enabled: false,
-            custom: customTooltips,
-            intersect: true,
-            mode: 'index',
-            position: 'nearest',
-            callbacks: {
-              labelColor(tooltipItem, chart) {
-                function getValue(prop) {
-                  return typeof prop === 'object' ? prop[tooltipItem.index] : prop
-                }
-                const dataset = chart.data.datasets[tooltipItem.datasetIndex]
-                //tooltipLabelColor is coreUI custom prop used only here
-                const backgroundColor = getValue(
-                  dataset.tooltipLabelColor ||
-                  dataset.pointHoverBackgroundColor ||
-                  dataset.borderColor ||
-                  dataset.backgroundColor
-                )
-                return {
-                  backgroundColor
-                }
+      if (this.options && this.options.tooltips) {
+        return
+      }
+      return {
+        tooltips: {
+          enabled: false,
+          custom: customTooltips,
+          intersect: true,
+          mode: 'index',
+          position: 'nearest',
+          callbacks: {
+            labelColor(tooltipItem, chart) {
+              function getValue(prop) {
+                return typeof prop === 'object' ? prop[tooltipItem.index] : prop
+              }
+              const dataset = chart.data.datasets[tooltipItem.datasetIndex]
+              //tooltipLabelColor is coreUI custom prop used only here
+              const backgroundColor = getValue(
+                dataset.tooltipLabelColor ||
+                dataset.pointHoverBackgroundColor ||
+                dataset.borderColor ||
+                dataset.backgroundColor
+              )
+              return {
+                backgroundColor
               }
             }
           }

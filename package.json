@@ -1,7 +1,7 @@
 {
   "name": "@coreui/coreui-vue-chartjs",
   "description": "Vue component wrapper for chart.js",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "license": "MIT",
   "main": "dist/coreui-vue-chartjs.common.js",
   "scripts": {
@@ -10,18 +10,18 @@
     "test": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.3.1",
-    "chart.js": "^2.8.0",
+    "@coreui/coreui-chartjs": "2.0.0-beta.0",
+    "chart.js": "^2.9.2",
     "vue": "^2.6.10"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.11.0",
-    "@vue/cli-plugin-eslint": "^3.11.0",
-    "@vue/cli-service": "^3.11.0",
+    "@vue/cli-plugin-babel": "^4.0.5",
+    "@vue/cli-plugin-eslint": "^4.0.5",
+    "@vue/cli-service": "^4.0.5",
     "babel-eslint": "^10.0.3",
     "babel-preset-vue-app": "^2.0.0",
-    "eslint": "^6.2.2",
-    "eslint-plugin-vue": "^5.2.3",
+    "eslint": "^6.6.0",
+    "eslint-plugin-vue": "^6.0.1",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
