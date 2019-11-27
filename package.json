@@ -4,6 +4,13 @@
   "version": "1.0.0-alpha.2",
   "license": "MIT",
   "main": "dist/coreui-vue-chartjs.common.js",
+  "types": "src/index.d.ts",
+  "files": [
+    "src",
+    "dist",
+    "babel.config.js",
+    "vue.config.js"
+  ],
   "scripts": {
     "build": "vue-cli-service build --target lib --name coreui-vue-chartjs ./src/index.js",
     "lint": "vue-cli-service lint",
