@@ -12,23 +12,36 @@ export default {
     plugins: Array
   },
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  data() {
+  data () {
     return {
       chart: undefined
     }
   },
+  watch: {
+    chartConfig () {
+      this.updateChart()
+    }
+  },
+  mounted () {
+    this.renderChart()
+  },
+  beforeDestroy () {
+    this.destroyChart()
+  },
   computed: {
-    safeId() {
+    safeId () {
       // as long as this._uid() works there is no need to generate the key
       const key = () => Math.random().toString(36).replace('0.', '')
       return '__safe_id__' + this._uid || key()
     },
-    computedDatasets() {
+    computedDatasets () {
       return this.datasets
     },
-    computedLabels() {
+    computedLabels () {
       if (this.labels && typeof this.labels !== 'string') {
         return this.labels
+      } else if (!this.datasets || !this.datasets[0] || !this.datasets[0].data) {
+        return []
       }
       const emptyLabels = Array(this.datasets[0].data.length).fill('')
 
@@ -39,13 +52,13 @@ export default {
       }
       return emptyLabels
     },
-    computedData() {
+    computedData () {
       return {
         datasets: this.computedDatasets,
         labels: this.computedLabels
       }
     },
-    customTooltips() {
+    customTooltips () {
       if (this.options && this.options.tooltips) {
         return
       }
@@ -77,10 +90,10 @@ export default {
         }
       }
     },
-    computedOptions() {
+    computedOptions () {
       return Object.assign({}, this.options, this.customTooltips || {})
     },
-    chartConfig() {
+    chartConfig () {
       return {
         type: this.$options.type,
         data: this.computedData,
@@ -89,34 +102,23 @@ export default {
       }
     }
   },
-  watch: {
-    chartConfig() {
-      this.updateChart()
-    }
-  },
-  mounted() {
-    this.renderChart()
-  },
   methods: {
-    renderChart() {
+    renderChart () {
       this.destroyChart()
       this.chart = new Chart(
         this.$refs.canvas.getContext('2d'),
         this.chartConfig
       )
     },
-    updateChart() {
+    updateChart () {
       Object.assign(this.chart, this.chartConfig)
       this.chart.update()
     },
-    destroyChart() {
+    destroyChart () {
       if (this.chart) {
         this.chart.destroy()
       }
     }
-  },
-  beforeDestroy() {
-    this.destroyChart()
   },
   render(h) {
     return h(
