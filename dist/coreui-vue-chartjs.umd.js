@@ -2872,7 +2872,7 @@ function toComment(sourceMap) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
- * Chart.js v2.9.2
+ * Chart.js v2.9.3
  * https://www.chartjs.org
  * (c) 2019 Chart.js Contributors
  * Released under the MIT License
@@ -6756,7 +6756,7 @@ helpers$1.extend(DatasetController.prototype, {
 		}
 
 		if (style.fill === false || style.fill === null) {
-			style.backgroundColor = 'rgba(0,0,0,0)';
+			style.backgroundColor = style.borderColor;
 		}
 
 		return style;
@@ -14307,7 +14307,7 @@ var Scale = core_element.extend({
 	*/
 	_getLabels: function() {
 		var data = this.chart.data;
-		return this.options.labels || (this.isHorizontal() ? data.xLabels : data.yLabels) || data.labels;
+		return this.options.labels || (this.isHorizontal() ? data.xLabels : data.yLabels) || data.labels || [];
 	},
 
 	// These methods are ordered by lifecyle. Utilities then follow.
@@ -33876,6 +33876,17 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       chart: undefined
     };
   },
+  watch: {
+    chartConfig: function chartConfig() {
+      this.updateChart();
+    }
+  },
+  mounted: function mounted() {
+    this.renderChart();
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.destroyChart();
+  },
   computed: {
     safeId: function safeId() {
       // as long as this._uid() works there is no need to generate the key
@@ -33893,6 +33904,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       if (this.labels && typeof this.labels !== 'string') {
         return this.labels;
+      } else if (!this.datasets || !this.datasets[0] || !this.datasets[0].data) {
+        return [];
       }
 
       var emptyLabels = Array(this.datasets[0].data.length).fill('');
@@ -33956,14 +33969,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       };
     }
   },
-  watch: {
-    chartConfig: function chartConfig() {
-      this.updateChart();
-    }
-  },
-  mounted: function mounted() {
-    this.renderChart();
-  },
   methods: {
     renderChart: function renderChart() {
       this.destroyChart();
@@ -33978,9 +33983,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         this.chart.destroy();
       }
     }
-  },
-  beforeDestroy: function beforeDestroy() {
-    this.destroyChart();
   },
   render: function render(h) {
     return h('div', [h('canvas', {

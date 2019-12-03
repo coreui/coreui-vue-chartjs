@@ -1,15 +1,34 @@
 {
   "name": "@coreui/coreui-vue-chartjs",
   "description": "Vue component wrapper for chart.js",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "dist/coreui-vue-chartjs.common.js",
   "types": "src/index.d.ts",
+  "homepage": "https://coreui.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coreui/coreui-vue-chartjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/coreui/coreui-vue-chartjs/issues"
+  },
+  "keywords": [
+    "chart.js",
+    "vue chart.js",
+    "coreui-vue",
+    "vue charts",
+    "vue chart components",
+    "layout",
+    "charts",
+    "vue chart.js implementation",
+    "layout",
+    "layout",
+    "component"
+  ],
   "files": [
     "src",
-    "dist",
-    "babel.config.js",
-    "vue.config.js"
+    "dist"
   ],
   "scripts": {
     "build": "vue-cli-service build --target lib --name coreui-vue-chartjs ./src/index.js",
@@ -18,16 +37,16 @@
   },
   "dependencies": {
     "@coreui/coreui-chartjs": "2.0.0-beta.0",
-    "chart.js": "^2.9.2",
+    "chart.js": "^2.9.3",
     "vue": "^2.6.10"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.0.5",
-    "@vue/cli-plugin-eslint": "^4.0.5",
-    "@vue/cli-service": "^4.0.5",
+    "@vue/cli-plugin-babel": "^4.1.1",
+    "@vue/cli-plugin-eslint": "^4.1.1",
+    "@vue/cli-service": "^4.1.1",
     "babel-eslint": "^10.0.3",
     "babel-preset-vue-app": "^2.0.0",
-    "eslint": "^6.6.0",
+    "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.0.1",
     "vue-template-compiler": "^2.6.10"
   },
