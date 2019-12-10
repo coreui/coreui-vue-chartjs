@@ -1,13 +1,13 @@
 # Coreui Vue Chartjs library
 
-![NPM](https://img.shields.io/badge/npm-1.0.2-brightgreen)
-![Downloads](https://img.shields.io/npm/dm/@coreui/coreui-vue-chartjs.svg?style=flat-square)
+![NPM](https://img.shields.io/npm/v/@coreui/vue-chartjs/latest?style=flat&color=brightgreen)
+![Downloads](https://img.shields.io/npm/dm/@coreui/vue-chartjs.svg?style=flat)
 ![Chart.js](https://img.shields.io/badge/Chart.js-^2.9.3-brightgreen.svg)
 ![Vue](https://img.shields.io/badge/Vue-^2.6.10-brightgreen.svg)
 
 ## Description
 
-Dedicated components used to implement [Chart.js](https://www.chartjs.org/) in Vue.js. You can find the **library documentation** [here](https://coreui.io/vue/docs/components/charts)
+Dedicated components used to implement [Chart.js](https://www.chartjs.org/) in Vue.js. You can find the **library documentation** here: [https://coreui.io/vue/docs](https://coreui.io/vue/docs/components/charts).
 
 ## Features
 
