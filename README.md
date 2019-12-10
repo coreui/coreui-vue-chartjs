@@ -7,7 +7,7 @@
 
 ## Description
 
-Dedicated components used to implement [Chart.js](https://www.chartjs.org/) in Vue.js. You can find the **library documentation** here: [https://coreui.io/vue/docs](https://coreui.io/vue/docs/components/charts).
+Dedicated components used to implement [Chart.js](https://www.chartjs.org/) in Vue.js. You can find the **CoreUI Vue library documentation** here [https://coreui.io/vue/docs »](https://coreui.io/vue/docs/components/charts)
 
 ## Features
 
