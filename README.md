@@ -1,6 +1,6 @@
 # Coreui Vue Chartjs library
 
-![NPM](https://img.shields.io/badge/npm-1.0.1-brightgreen)
+![NPM](https://img.shields.io/badge/npm-1.0.2-brightgreen)
 ![Downloads](https://img.shields.io/npm/dm/@coreui/coreui-vue-chartjs.svg?style=flat-square)
 ![Chart.js](https://img.shields.io/badge/Chart.js-^2.9.3-brightgreen.svg)
 ![Vue](https://img.shields.io/badge/Vue-^2.6.10-brightgreen.svg)
