@@ -1,6 +1,6 @@
 <script>
 import Chart from 'chart.js'
-import { customTooltips } from '@coreui/coreui-chartjs'
+import { customTooltips } from '@coreui/coreui-chartjs/dist/js/coreui-chartjs.js'
 
 export default {
   name: '',
