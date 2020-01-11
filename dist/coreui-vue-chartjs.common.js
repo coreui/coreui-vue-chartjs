@@ -2167,7 +2167,7 @@ module.exports = function (useSourceMap) {
       var content = cssWithMappingToString(item, useSourceMap);
 
       if (item[2]) {
-        return "@media ".concat(item[2], "{").concat(content, "}");
+        return "@media ".concat(item[2], " {").concat(content, "}");
       }
 
       return content;
@@ -2176,7 +2176,7 @@ module.exports = function (useSourceMap) {
   // eslint-disable-next-line func-names
 
 
-  list.i = function (modules, mediaQuery) {
+  list.i = function (modules, mediaQuery, dedupe) {
     if (typeof modules === 'string') {
       // eslint-disable-next-line no-param-reassign
       modules = [[null, modules, '']];
@@ -2184,30 +2184,34 @@ module.exports = function (useSourceMap) {
 
     var alreadyImportedModules = {};
 
-    for (var i = 0; i < this.length; i++) {
-      // eslint-disable-next-line prefer-destructuring
-      var id = this[i][0];
+    if (dedupe) {
+      for (var i = 0; i < this.length; i++) {
+        // eslint-disable-next-line prefer-destructuring
+        var id = this[i][0];
 
-      if (id != null) {
-        alreadyImportedModules[id] = true;
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
       }
     }
 
     for (var _i = 0; _i < modules.length; _i++) {
-      var item = modules[_i]; // skip already imported module
-      // this implementation is not 100% perfect for weird media query combinations
-      // when a module is imported multiple times with different media queries.
-      // I hope this will never occur (Hey this way we have smaller bundles)
+      var item = [].concat(modules[_i]);
 
-      if (item[0] == null || !alreadyImportedModules[item[0]]) {
-        if (mediaQuery && !item[2]) {
-          item[2] = mediaQuery;
-        } else if (mediaQuery) {
-          item[2] = "(".concat(item[2], ") and (").concat(mediaQuery, ")");
-        }
-
-        list.push(item);
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        // eslint-disable-next-line no-continue
+        continue;
       }
+
+      if (mediaQuery) {
+        if (!item[2]) {
+          item[2] = mediaQuery;
+        } else {
+          item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
+        }
+      }
+
+      list.push(item);
     }
   };
 
@@ -2226,7 +2230,7 @@ function cssWithMappingToString(item, useSourceMap) {
   if (useSourceMap && typeof btoa === 'function') {
     var sourceMapping = toComment(cssMapping);
     var sourceURLs = cssMapping.sources.map(function (source) {
-      return "/*# sourceURL=".concat(cssMapping.sourceRoot).concat(source, " */");
+      return "/*# sourceURL=".concat(cssMapping.sourceRoot || '').concat(source, " */");
     });
     return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
   }
@@ -19086,11 +19090,15 @@ return src;
 /***/ "392c":
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__("24fb")(false);
 // Imports
-exports.i(__webpack_require__("92d9"), "");
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
+var ___CSS_LOADER_AT_RULE_IMPORT_0___ = __webpack_require__("92d9");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);
 // Module
 exports.push([module.i, "", ""]);
+// Exports
+module.exports = exports;
 
 
 /***/ }),
@@ -25214,9 +25222,13 @@ module.exports = function(module) {
 /***/ "92d9":
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__("24fb")(false);
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
+exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, "@charset \"UTF-8\";\n/*!\n * CoreUI Plugins - Chart.js for CoreUI 3\n * @version vv2.0.0-beta.0\n * @link https://coreui.io\n * Copyright (c) 2019 creativeLabs Łukasz Holeczek\n * Licensed under MIT (https://coreui.io/license/plugins/chart.js)\n */.c-chartjs-tooltip{position:absolute;z-index:1021;display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;padding:.25rem .5rem;color:#fff;pointer-events:none;background:rgba(0,0,0,.7);opacity:0;transition:all .25s ease;-webkit-transform:translate(-50%);transform:translate(-50%);border-radius:.25rem}.c-chartjs-tooltip .c-tooltip-header{margin-bottom:.5rem}.c-chartjs-tooltip .c-tooltip-header-item{font-size:.765625rem;font-weight:700}.c-chartjs-tooltip .c-tooltip-body-item{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;font-size:.765625rem;white-space:nowrap}.c-chartjs-tooltip .c-tooltip-body-item-color{display:inline-block;width:.875rem;height:.875rem;margin-right:.875rem}.c-chartjs-tooltip .c-tooltip-body-item-value{padding-left:1rem;margin-left:auto;font-weight:700}", ""]);
+// Exports
+module.exports = exports;
 
 
 /***/ }),
@@ -33266,6 +33278,175 @@ var update = add("0ae97a53", content, true, {"sourceMap":false,"shadowMode":fals
 
 /***/ }),
 
+/***/ "ee49":
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+  * CoreUI Plugins - Chart.js for CoreUI 3 v2.0.0-beta.0 (https://coreui.io)
+  * Copyright 2019 Łukasz Holeczek
+  * Licensed under MIT (https://coreui.io/plugins/chart.js)
+  */
+(function (global, factory) {
+   true ? module.exports = factory(__webpack_require__("30ef")) :
+  undefined;
+}(this, (function (chart_js) { 'use strict';
+
+  chart_js = chart_js && chart_js.hasOwnProperty('default') ? chart_js['default'] : chart_js;
+
+  /**
+   * --------------------------------------------------------------------------
+   * Custom Tooltips for Chart.js (vv2.0.0-beta.0): custom-tooltips.js
+   * Licensed under MIT (https://coreui.io/plugins/chart.js)
+   * --------------------------------------------------------------------------
+   */
+  function customTooltips(tooltipModel) {
+    var _this = this;
+
+    // Add unique id if not exist
+    var _setCanvasId = function _setCanvasId() {
+      var _idMaker = function _idMaker() {
+        var _hex = 16;
+        var _multiplier = 0x10000;
+        return ((1 + Math.random()) * _multiplier | 0).toString(_hex);
+      };
+
+      var _canvasId = "_canvas-" + (_idMaker() + _idMaker());
+
+      _this._chart.canvas.id = _canvasId;
+      return _canvasId;
+    };
+
+    var ClassName = {
+      ABOVE: 'c-above',
+      BELOW: 'c-below',
+      CHARTJS_TOOLTIP: 'c-chartjs-tooltip',
+      NO_TRANSFORM: 'c-no-transform',
+      TOOLTIP_BODY: 'c-tooltip-body',
+      TOOLTIP_BODY_ITEM: 'c-tooltip-body-item',
+      TOOLTIP_BODY_ITEM_COLOR: 'c-tooltip-body-item-color',
+      TOOLTIP_BODY_ITEM_LABEL: 'c-tooltip-body-item-label',
+      TOOLTIP_BODY_ITEM_VALUE: 'c-tooltip-body-item-value',
+      TOOLTIP_HEADER: 'c-tooltip-header',
+      TOOLTIP_HEADER_ITEM: 'c-tooltip-header-item'
+    };
+    var Selector = {
+      DIV: 'div',
+      SPAN: 'span',
+      TOOLTIP: (this._chart.canvas.id || _setCanvasId()) + "-tooltip"
+    };
+    var tooltip = document.getElementById(Selector.TOOLTIP);
+
+    if (!tooltip) {
+      tooltip = document.createElement('div');
+      tooltip.id = Selector.TOOLTIP;
+      tooltip.className = ClassName.CHARTJS_TOOLTIP;
+
+      this._chart.canvas.parentNode.appendChild(tooltip);
+    } // Hide if no tooltip
+
+
+    if (tooltipModel.opacity === 0) {
+      tooltip.style.opacity = 0;
+      return;
+    } // Set caret Position
+
+
+    tooltip.classList.remove(ClassName.ABOVE, ClassName.BELOW, ClassName.NO_TRANSFORM);
+
+    if (tooltipModel.yAlign) {
+      tooltip.classList.add(tooltipModel.yAlign);
+    } else {
+      tooltip.classList.add(ClassName.NO_TRANSFORM);
+    } // Set Text
+
+
+    if (tooltipModel.body) {
+      var titleLines = tooltipModel.title || [];
+      var tooltipHeader = document.createElement(Selector.DIV);
+      tooltipHeader.className = ClassName.TOOLTIP_HEADER;
+      titleLines.forEach(function (title) {
+        var tooltipHeaderTitle = document.createElement(Selector.DIV);
+        tooltipHeaderTitle.className = ClassName.TOOLTIP_HEADER_ITEM;
+        tooltipHeaderTitle.innerHTML = title;
+        tooltipHeader.appendChild(tooltipHeaderTitle);
+      });
+      var tooltipBody = document.createElement(Selector.DIV);
+      tooltipBody.className = ClassName.TOOLTIP_BODY;
+      var tooltipBodyItems = tooltipModel.body.map(function (item) {
+        return item.lines;
+      });
+      tooltipBodyItems.forEach(function (item, i) {
+        var tooltipBodyItem = document.createElement(Selector.DIV);
+        tooltipBodyItem.className = ClassName.TOOLTIP_BODY_ITEM;
+        var colors = tooltipModel.labelColors[i];
+        var tooltipBodyItemColor = document.createElement(Selector.SPAN);
+        tooltipBodyItemColor.className = ClassName.TOOLTIP_BODY_ITEM_COLOR;
+        tooltipBodyItemColor.style.backgroundColor = colors.backgroundColor;
+        tooltipBodyItem.appendChild(tooltipBodyItemColor);
+
+        if (item[0].split(':').length > 1) {
+          var tooltipBodyItemLabel = document.createElement(Selector.SPAN);
+          tooltipBodyItemLabel.className = ClassName.TOOLTIP_BODY_ITEM_LABEL;
+          tooltipBodyItemLabel.innerHTML = item[0].split(': ')[0];
+          tooltipBodyItem.appendChild(tooltipBodyItemLabel);
+          var tooltipBodyItemValue = document.createElement(Selector.SPAN);
+          tooltipBodyItemValue.className = ClassName.TOOLTIP_BODY_ITEM_VALUE;
+          tooltipBodyItemValue.innerHTML = item[0].split(': ').pop();
+          tooltipBodyItem.appendChild(tooltipBodyItemValue);
+        } else {
+          var _tooltipBodyItemValue = document.createElement(Selector.SPAN);
+
+          _tooltipBodyItemValue.className = ClassName.TOOLTIP_BODY_ITEM_VALUE;
+          _tooltipBodyItemValue.innerHTML = item[0];
+          tooltipBodyItem.appendChild(_tooltipBodyItemValue);
+        }
+
+        tooltipBody.appendChild(tooltipBodyItem);
+      });
+      tooltip.innerHTML = '';
+      tooltip.appendChild(tooltipHeader);
+      tooltip.appendChild(tooltipBody);
+    }
+
+    var position = this._chart.canvas.getBoundingClientRect();
+
+    var positionY = this._chart.canvas.offsetTop;
+    var positionX = this._chart.canvas.offsetLeft;
+    var positionLeft = positionX + tooltipModel.caretX;
+    var positionTop = positionY + tooltipModel.caretY; // eslint-disable-next-line
+
+    var halfWidth = tooltipModel.width / 2;
+
+    if (positionLeft + halfWidth > position.width) {
+      positionLeft -= halfWidth;
+    } else if (positionLeft < halfWidth) {
+      positionLeft += halfWidth;
+    } // Display, position, and set styles for font
+
+
+    tooltip.style.opacity = 1;
+    tooltip.style.left = positionLeft + "px";
+    tooltip.style.top = positionTop + "px";
+  }
+
+  /**
+   * --------------------------------------------------------------------------
+   * Custom Tooltips for Chart.js (vv2.0.0-beta.0): index.umd.js
+   * Licensed under MIT (https://github.com/@coreui/coreui-chartjs/LICENSE)
+   * --------------------------------------------------------------------------
+   */
+  var index_umd = {
+    customTooltips: customTooltips
+  };
+
+  return index_umd;
+
+})));
+//# sourceMappingURL=coreui-chartjs.js.map
+
+
+/***/ }),
+
 /***/ "f260":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33704,148 +33885,8 @@ if (typeof window !== 'undefined') {
 var Chart = __webpack_require__("30ef");
 var Chart_default = /*#__PURE__*/__webpack_require__.n(Chart);
 
-// CONCATENATED MODULE: ./node_modules/@coreui/coreui-chartjs/dist/js/coreui-chartjs.esm.js
-/*!
-  * CoreUI Plugins - Chart.js for CoreUI 3 v2.0.0-beta.0 (https://coreui.io)
-  * Copyright 2019 Łukasz Holeczek
-  * Licensed under MIT (https://coreui.io/plugins/chart.js)
-  */
-
-
-/**
- * --------------------------------------------------------------------------
- * Custom Tooltips for Chart.js (vv2.0.0-beta.0): custom-tooltips.js
- * Licensed under MIT (https://coreui.io/plugins/chart.js)
- * --------------------------------------------------------------------------
- */
-function coreui_chartjs_esm_customTooltips(tooltipModel) {
-  // Add unique id if not exist
-  var _setCanvasId = () => {
-    var _idMaker = () => {
-      var _hex = 16;
-      var _multiplier = 0x10000;
-      return ((1 + Math.random()) * _multiplier | 0).toString(_hex);
-    };
-
-    var _canvasId = "_canvas-" + (_idMaker() + _idMaker());
-
-    this._chart.canvas.id = _canvasId;
-    return _canvasId;
-  };
-
-  var ClassName = {
-    ABOVE: 'c-above',
-    BELOW: 'c-below',
-    CHARTJS_TOOLTIP: 'c-chartjs-tooltip',
-    NO_TRANSFORM: 'c-no-transform',
-    TOOLTIP_BODY: 'c-tooltip-body',
-    TOOLTIP_BODY_ITEM: 'c-tooltip-body-item',
-    TOOLTIP_BODY_ITEM_COLOR: 'c-tooltip-body-item-color',
-    TOOLTIP_BODY_ITEM_LABEL: 'c-tooltip-body-item-label',
-    TOOLTIP_BODY_ITEM_VALUE: 'c-tooltip-body-item-value',
-    TOOLTIP_HEADER: 'c-tooltip-header',
-    TOOLTIP_HEADER_ITEM: 'c-tooltip-header-item'
-  };
-  var Selector = {
-    DIV: 'div',
-    SPAN: 'span',
-    TOOLTIP: (this._chart.canvas.id || _setCanvasId()) + "-tooltip"
-  };
-  var tooltip = document.getElementById(Selector.TOOLTIP);
-
-  if (!tooltip) {
-    tooltip = document.createElement('div');
-    tooltip.id = Selector.TOOLTIP;
-    tooltip.className = ClassName.CHARTJS_TOOLTIP;
-
-    this._chart.canvas.parentNode.appendChild(tooltip);
-  } // Hide if no tooltip
-
-
-  if (tooltipModel.opacity === 0) {
-    tooltip.style.opacity = 0;
-    return;
-  } // Set caret Position
-
-
-  tooltip.classList.remove(ClassName.ABOVE, ClassName.BELOW, ClassName.NO_TRANSFORM);
-
-  if (tooltipModel.yAlign) {
-    tooltip.classList.add(tooltipModel.yAlign);
-  } else {
-    tooltip.classList.add(ClassName.NO_TRANSFORM);
-  } // Set Text
-
-
-  if (tooltipModel.body) {
-    var titleLines = tooltipModel.title || [];
-    var tooltipHeader = document.createElement(Selector.DIV);
-    tooltipHeader.className = ClassName.TOOLTIP_HEADER;
-    titleLines.forEach(title => {
-      var tooltipHeaderTitle = document.createElement(Selector.DIV);
-      tooltipHeaderTitle.className = ClassName.TOOLTIP_HEADER_ITEM;
-      tooltipHeaderTitle.innerHTML = title;
-      tooltipHeader.appendChild(tooltipHeaderTitle);
-    });
-    var tooltipBody = document.createElement(Selector.DIV);
-    tooltipBody.className = ClassName.TOOLTIP_BODY;
-    var tooltipBodyItems = tooltipModel.body.map(item => item.lines);
-    tooltipBodyItems.forEach((item, i) => {
-      var tooltipBodyItem = document.createElement(Selector.DIV);
-      tooltipBodyItem.className = ClassName.TOOLTIP_BODY_ITEM;
-      var colors = tooltipModel.labelColors[i];
-      var tooltipBodyItemColor = document.createElement(Selector.SPAN);
-      tooltipBodyItemColor.className = ClassName.TOOLTIP_BODY_ITEM_COLOR;
-      tooltipBodyItemColor.style.backgroundColor = colors.backgroundColor;
-      tooltipBodyItem.appendChild(tooltipBodyItemColor);
-
-      if (item[0].split(':').length > 1) {
-        var tooltipBodyItemLabel = document.createElement(Selector.SPAN);
-        tooltipBodyItemLabel.className = ClassName.TOOLTIP_BODY_ITEM_LABEL;
-        tooltipBodyItemLabel.innerHTML = item[0].split(': ')[0];
-        tooltipBodyItem.appendChild(tooltipBodyItemLabel);
-        var tooltipBodyItemValue = document.createElement(Selector.SPAN);
-        tooltipBodyItemValue.className = ClassName.TOOLTIP_BODY_ITEM_VALUE;
-        tooltipBodyItemValue.innerHTML = item[0].split(': ').pop();
-        tooltipBodyItem.appendChild(tooltipBodyItemValue);
-      } else {
-        var _tooltipBodyItemValue = document.createElement(Selector.SPAN);
-
-        _tooltipBodyItemValue.className = ClassName.TOOLTIP_BODY_ITEM_VALUE;
-        _tooltipBodyItemValue.innerHTML = item[0];
-        tooltipBodyItem.appendChild(_tooltipBodyItemValue);
-      }
-
-      tooltipBody.appendChild(tooltipBodyItem);
-    });
-    tooltip.innerHTML = '';
-    tooltip.appendChild(tooltipHeader);
-    tooltip.appendChild(tooltipBody);
-  }
-
-  var position = this._chart.canvas.getBoundingClientRect();
-
-  var positionY = this._chart.canvas.offsetTop;
-  var positionX = this._chart.canvas.offsetLeft;
-  var positionLeft = positionX + tooltipModel.caretX;
-  var positionTop = positionY + tooltipModel.caretY; // eslint-disable-next-line
-
-  var halfWidth = tooltipModel.width / 2;
-
-  if (positionLeft + halfWidth > position.width) {
-    positionLeft -= halfWidth;
-  } else if (positionLeft < halfWidth) {
-    positionLeft += halfWidth;
-  } // Display, position, and set styles for font
-
-
-  tooltip.style.opacity = 1;
-  tooltip.style.left = positionLeft + "px";
-  tooltip.style.top = positionTop + "px";
-}
-
-
-//# sourceMappingURL=coreui-chartjs.esm.js.map
+// EXTERNAL MODULE: ./node_modules/@coreui/coreui-chartjs/dist/js/coreui-chartjs.js
+var coreui_chartjs = __webpack_require__("ee49");
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Chart.vue?vue&type=script&lang=js&
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -33927,7 +33968,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       return {
         tooltips: {
           enabled: false,
-          custom: coreui_chartjs_esm_customTooltips,
+          custom: coreui_chartjs["customTooltips"],
           intersect: true,
           mode: 'index',
           position: 'nearest',
