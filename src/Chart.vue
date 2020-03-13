@@ -32,7 +32,7 @@ export default {
     safeId () {
       // as long as this._uid() works there is no need to generate the key
       const key = () => Math.random().toString(36).replace('0.', '')
-      return '__safe_id__' + this._uid || key()
+      return '__safe_id__' + (this._uid || key())
     },
     computedDatasets () {
       return this.datasets
