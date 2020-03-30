@@ -5,10 +5,10 @@ export declare class CChart extends Vue {
   labels: [string, Array<string>]
   options: object
   plugins: Array<any>
-  src: string
 }
 
 export declare class CChartBar extends CChart {}
+export declare class CChartHorizontalBar extends CChart {}
 export declare class CChartLine extends CChart {}
 export declare class CChartDoughnut extends CChart {}
 export declare class CChartRadar extends CChart {}
