@@ -1,10 +1,10 @@
 {
   "name": "@coreui/vue-chartjs",
   "description": "Vue component wrapper for chart.js",
-  "version": "1.0.6",
+  "version": "2.0.0-alpha.0",
   "license": "MIT",
-  "main": "dist/coreui-vue-chartjs.common.js",
-  "types": "src/index.d.ts",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "homepage": "https://coreui.io",
   "author": {
     "name": "CoreUI",
@@ -42,43 +42,36 @@
     "dist"
   ],
   "scripts": {
-    "build": "vue-cli-service build --target lib --name coreui-vue-chartjs ./src/index.js",
-    "lint": "vue-cli-service lint",
-    "test": "vue-cli-service test:unit"
+    "build": "rollup -c",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'"
   },
   "dependencies": {
-    "@coreui/coreui-chartjs": "2.0.0-beta.0",
-    "chart.js": "^2.9.3",
-    "vue": "^2.6.12"
+    "@coreui/chartjs": "^3.0.0",
+    "chart.js": "^3.4.1",
+    "vue": "^3.0.10"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.4",
-    "@vue/cli-plugin-eslint": "^4.5.4",
-    "@vue/cli-service": "^4.5.4",
-    "babel-eslint": "^10.1.0",
-    "babel-preset-vue-app": "^2.0.0",
-    "eslint": "^7.8.1",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.12"
+    "@types/lodash": "^4.14.172",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "@vue/compiler-sfc": "^3.1.5",
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-vue": "^7.10.0",
+    "lodash": "^4.17.21",
+    "prettier": "^2.3.2",
+    "rollup": "^2.44.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-vue": "^6.0.0",
+    "typescript": "^4.2.3",
+    "vue-types": "^4.0.1"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
+  "peerDependencies": {
+    "vue": "^3.0.10"
   },
   "browserslist": [
     "> 1%",
