@@ -1,6 +1,6 @@
-import { defineComponent, h, onMounted, onUnmounted, onUpdated, PropType, ref, Ref } from 'vue'
+import { defineComponent, h, onMounted, onUnmounted, onUpdated, PropType, ref, Ref,  } from 'vue'
 
-import Chart, { /*ChartData,*/ ChartOptions, ChartType, Plugin } from 'chart.js/auto'
+import Chart, { ChartData, ChartOptions, ChartType, Plugin } from 'chart.js/auto'
 import * as chartjs from 'chart.js'
 import { customTooltips as cuiCustomTooltips } from '@coreui/chartjs'
 
@@ -27,7 +27,10 @@ export const defineCChartComponent = (name: string, type: ChartType | undefined)
        * The data object that is passed into the Chart.js chart (more info).
        */
       data: {
-        type: [Object, Function],
+        type: [Object, Function] as PropType<
+          // eslint-disable-next-line no-unused-vars
+          ChartData | ((canvas: HTMLCanvasElement) => ChartData)
+        >,
         // type: [
         //   Object as PropType<ChartData> |
         //   Function as PropType<(canvas: HTMLCanvasElement) => ChartData>,
@@ -121,15 +124,14 @@ export const defineCChartComponent = (name: string, type: ChartType | undefined)
     ],
     setup(props, { emit, slots }) {
       const canvasRef = ref<HTMLCanvasElement>()
-      const chart = ref<Chart | null>(null)
+      let chart: Chart | null
 
-      const computedData = ref(
+      const computedData =
         typeof props.data === 'function'
           ? canvasRef.value
             ? props.data(canvasRef.value)
             : { datasets: [] }
-          : merge({}, props.data),
-      )
+          : merge({}, props.data)
 
       const renderChart = () => {
         if (!canvasRef.value) return
@@ -141,54 +143,54 @@ export const defineCChartComponent = (name: string, type: ChartType | undefined)
           chartjs.defaults.plugins.tooltip.external = cuiCustomTooltips
         }
 
-        chart.value = new Chart(canvasRef.value, {
+        chart = new Chart(canvasRef.value, {
           type: typeof type === 'undefined' ? props.type : type,
-          data: computedData.value,
+          data: computedData,
           options: props.options as ChartOptions,
           plugins: props.plugins,
         })
       }
 
       const handleOnClick = (e: Event) => {
-        console.log(chart.value)
-        if (!chart.value) return
+        console.log(chart)
+        if (!chart) return
 
         emit(
           'getDatasetAtEvent',
-          chart.value.getElementsAtEventForMode(e, 'dataset', { intersect: true }, false),
+          chart.getElementsAtEventForMode(e, 'dataset', { intersect: true }, false),
           e,
         )
         emit(
           'getElementAtEvent',
-          chart.value.getElementsAtEventForMode(e, 'nearest', { intersect: true }, false),
+          chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, false),
           e,
         )
         emit(
           'getElementsAtEvent',
-          chart.value.getElementsAtEventForMode(e, 'index', { intersect: true }, false),
+          chart.getElementsAtEventForMode(e, 'index', { intersect: true }, false),
           e,
         )
       }
 
       const updateChart = () => {
-        if (!chart.value) return
+        if (!chart) return
 
         if (props.options) {
-          chart.value.options = { ...props.options }
+          chart.options = { ...props.options }
         }
 
-        if (!chart.value.config.data) {
-          chart.value.config.data = computedData
-          chart.value.update()
+        if (!chart.config.data) {
+          chart.config.data = computedData
+          chart.update()
           return
         }
 
         const { datasets: newDataSets = [], ...newChartData } = computedData
-        const { datasets: currentDataSets = [] } = chart.value.config.data
+        const { datasets: currentDataSets = [] } = chart.config.data
 
         // copy values
-        assign(chart.value.config.data, newChartData)
-        chart.value.config.data.datasets = newDataSets.map((newDataSet: any) => {
+        assign(chart.config.data, newChartData)
+        chart.config.data.datasets = newDataSets.map((newDataSet: any) => {
           // given the new set, find it's current match
           const currentDataSet = find(
             currentDataSets,
@@ -215,11 +217,11 @@ export const defineCChartComponent = (name: string, type: ChartType | undefined)
           }
         })
 
-        chart.value && chart.value.update()
+        chart && chart.update()
       }
 
       const destroyChart = () => {
-        if (chart.value) chart.value.destroy()
+        if (chart) chart.destroy()
       }
 
       onMounted(() => {
