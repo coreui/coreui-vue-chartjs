@@ -85,7 +85,8 @@ export const defineCChartComponent = (name: string, type: ChartType | undefined)
        */
       type: {
         type: String as PropType<ChartType>,
-        required: true,
+        default: 'bar',
+        required: false,
       },
       /**
        * Width attribute applied to the rendered canvas.
