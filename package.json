@@ -1,7 +1,7 @@
 {
   "name": "@coreui/vue-chartjs",
   "description": "Vue component wrapper for chart.js",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-rc.0",
   "license": "MIT",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -45,33 +45,35 @@
     "build": "rollup -c",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'"
   },
-  "dependencies": {
-    "@coreui/chartjs": "^3.0.0",
-    "chart.js": "^3.4.1",
-    "vue": "^3.0.10"
-  },
   "devDependencies": {
+    "@coreui/chartjs": "^3.0.0",
+    "@rollup/plugin-commonjs": "^21.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.5",
+    "@rollup/plugin-typescript": "^8.2.5",
     "@types/lodash": "^4.14.172",
-    "@typescript-eslint/eslint-plugin": "^4.28.5",
-    "@typescript-eslint/parser": "^4.28.5",
-    "@vue/compiler-sfc": "^3.1.5",
-    "eslint": "^7.27.0",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "@vue/compiler-sfc": "^3.2.20",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "chart.js": "^3.4.1",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-vue": "^7.10.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^7.19.1",
     "lodash": "^4.17.21",
     "prettier": "^2.3.2",
-    "rollup": "^2.44.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup": "^2.58.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-typescript2": "^0.30.0",
     "rollup-plugin-vue": "^6.0.0",
-    "typescript": "^4.2.3",
+    "typescript": "^4.4.3",
+    "vue": "^3.2.20",
     "vue-types": "^4.0.1"
   },
   "peerDependencies": {
-    "vue": "^3.0.10"
+    "@coreui/chartjs": "^3.0.0",
+    "chart.js": "^3.4.1",
+    "vue": "^3.2.20"
   },
   "browserslist": [
     "> 1%",

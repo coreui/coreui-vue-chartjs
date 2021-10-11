@@ -11,7 +11,6 @@ export const CChartPolarArea = defineCChartComponent('CChartPolarArea', 'polarAr
 export const CChartRadar = defineCChartComponent('CChartRadar', 'radar')
 export const CChartScatter = defineCChartComponent('CChartScatter', 'scatter')
 
-
 const CChartPlugin = {
   install: (app: App): void => {
     app.component('CChart', CChart)

@@ -1,4 +1,4 @@
-import { defineComponent, h, onMounted, onUnmounted, onUpdated, PropType, ref, Ref,  } from 'vue'
+import { defineComponent, h, onMounted, onUnmounted, onUpdated, PropType, ref, Ref } from 'vue'
 
 import Chart, { ChartData, ChartOptions, ChartType, Plugin } from 'chart.js/auto'
 import * as chartjs from 'chart.js'
@@ -31,10 +31,6 @@ export const defineCChartComponent = (name: string, type: ChartType | undefined)
           // eslint-disable-next-line no-unused-vars
           ChartData | ((canvas: HTMLCanvasElement) => ChartData)
         >,
-        // type: [
-        //   Object as PropType<ChartData> |
-        //   Function as PropType<(canvas: HTMLCanvasElement) => ChartData>,
-        // ],
         required: true,
       },
       /**

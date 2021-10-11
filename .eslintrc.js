@@ -9,14 +9,22 @@ module.exports = {
     },
   },
   extends: [
-    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-    'plugin:prettier/recommended', // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+    'plugin:vue/vue3-essential',
     'eslint:recommended',
-    'plugin:vue/vue3-recommended',
+    '@vue/typescript/recommended',
+    '@vue/prettier',
+    '@vue/prettier/@typescript-eslint',
   ],
-  // plugins: ['@typescript-eslint'],
   rules: {
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-    // e.g. "@typescript-eslint/explicit-function-return-type": "off",
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
   },
+  overrides: [
+    {
+      files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 }
