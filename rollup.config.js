@@ -16,7 +16,7 @@ const plugins = [
     tsconfig: './tsconfig.json',
   }),
   commonjs({
-    include: ['../../node_modules/**'],
+    include: ['node_modules/**'],
   }),
 ]
 
