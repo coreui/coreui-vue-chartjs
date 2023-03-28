@@ -1,22 +1,184 @@
-# Coreui Vue Chartjs library
+<p align="center">
+  <a href="https://coreui.io/">
+    <img
+      src="https://coreui.io/images/brand/coreui-signet.svg"
+      alt="CoreUI logo"
+      width="200"
+    />
+  </a>
+</p>
 
-![NPM](https://img.shields.io/npm/v/@coreui/vue-chartjs/latest?style=flat&color=brightgreen)
-![Downloads](https://img.shields.io/npm/dm/@coreui/vue-chartjs.svg?style=flat)
-![Chart.js](https://img.shields.io/badge/Chart.js-^2.9.3-brightgreen.svg)
-![Vue](https://img.shields.io/badge/Vue-^2.6.10-brightgreen.svg)
+<h3 align="center">CoreUI Vue.js wrapper for Chart.js</h3>
 
-## Description
+<p align="center">
+  <a href="https://coreui.io/vue/docs/components/chart/"><strong>Explore @coreui/vue-chartjs docs & examples »</strong></a>
+  <br>
+  <br>
+  <a href="https://github.com/coreui/coreui-vue/issues/new?template=bug_report.md">Report bug</a>
+  ·
+  <a href="https://github.com/coreui/coreui-vue/issues/new?template=feature_request.md">Request feature</a>
+  ·
+  <a href="https://blog.coreui.io/">Blog</a>
+</p>
 
-Dedicated components used to implement [Chart.js](https://www.chartjs.org/) in Vue.js. You can find the **CoreUI Vue library documentation** here [https://coreui.io/vue/docs »](https://coreui.io/vue/docs/components/charts)
+## Status
 
-## Features
+[![npm package][npm-badge]][npm]
+[![NPM downloads][npm-download]][npm]
 
-- Implementation with ease - **You only need to pass 'datasets' prop and you have your chart working**. Optionally you can pass labels, options and plugins according to
-[Chart.js docs](https://www.chartjs.org/docs/latest/getting-started/usage.html). The rest of chart.js configuration issues are already resolved,
-- Chart will be rendered, even if you don't pass the labels, as empty labels will be generated automatically. You can also assign months or numeric indexes to labels (see prop description),
-- If you don't pass tooltip options, coreui-custom-tooltips, would be used by default. They are resolving the chart.js issue with tooltip beeing cut, when exceeding the canvas.
-- Dynamic updates of passed configuration. This feature makes your chart.js configuration automatically reactive to changes.
+[npm-badge]: https://img.shields.io/npm/v/@coreui/vue-chartjs/latest?style=flat-square
+[npm]: https://www.npmjs.com/package/@coreui/vue-chartjs
+[npm-download]: https://img.shields.io/npm/dm/@coreui/vue-chartjs.svg?style=flat-square
 
-## Copyright and license
+##### install:
 
-Copyright 2019 creativeLabs Łukasz Holeczek. Code released under the MIT license.
+```bash
+npm install @coreui/vue-chartjs
+
+# or
+
+yarn add @coreui/vue-chartjs
+```
+
+##### import:
+
+```jsx
+import { CChart } from '@coreui/vue-chartjs'
+```
+
+or
+
+```js
+import {
+  CChart,
+  CChartBar,
+  CChartHorizontalBar,
+  CChartLine,
+  CChartDoughnut,
+  CChartRadar,
+  CChartPie,
+  CChartPolarArea,
+} from '@coreui/vue-chartjs'
+```
+
+##### props:
+
+```js
+/**
+ * Enables custom html based tooltips instead of standard tooltips.
+ *
+ * @default true
+ */
+customTooltips: {
+  type: Boolean,
+  default: true,
+  required: false,
+},
+/**
+ * The data object that is passed into the Chart.js chart (more info).
+ */
+data: {
+  type: [Object, Function] as PropType<ChartData | ((canvas: HTMLCanvasElement) => ChartData)>,
+  required: true,
+},
+/**
+ * Height attribute applied to the rendered canvas.
+ *
+ * @default 150
+ */
+height: {
+  type: Number,
+  default: 150,
+  required: false,
+},
+/**
+ * ID attribute applied to the rendered canvas.
+ */
+id: {
+  type: String,
+  default: undefined,
+  required: false,
+},
+/**
+ * The options object that is passed into the Chart.js chart.
+ *
+ * {@link https://www.chartjs.org/docs/latest/general/options.html More Info}
+ */
+options: {
+  type: Object as PropType<ChartOptions>,
+  default: undefined,
+  required: false,
+},
+/**
+ * The plugins array that is passed into the Chart.js chart (more info)
+ *
+ * {@link https://www.chartjs.org/docs/latest/developers/plugins.html More Info}
+ */
+plugins: {
+  type: Array as PropType<Plugin[]>,
+  default: undefined,
+},
+/**
+ * If true, will tear down and redraw chart on all updates.
+ */
+redraw: Boolean,
+/**
+ * Chart.js chart type.
+ *
+ * @type {'line' | 'bar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie' | 'scatter'}
+ */
+type: {
+  type: String as PropType<ChartType>,
+  default: 'bar',
+  required: false,
+},
+/**
+ * Width attribute applied to the rendered canvas.
+ *
+ * @default 300
+ */
+width: {
+  type: Number,
+  default: 300,
+  required: false,
+},
+/**
+ * Put the chart into the wrapper div element.
+ *
+ * @default true
+ */
+wrapper: {
+  type: Boolean,
+  default: true,
+  required: false,
+},
+```
+
+##### usage:
+
+```vue
+<CChartLine
+  :wrapper="false"
+  :data="{
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label: 'My First dataset',
+        backgroundColor: 'rgba(220, 220, 220, 0.2)',
+        borderColor: 'rgba(220, 220, 220, 1)',
+        pointBackgroundColor: 'rgba(220, 220, 220, 1)',
+        pointBorderColor: '#fff',
+        data: [40, 20, 12, 39, 10, 40, 39]
+      },
+      {
+        label: 'My Second dataset',
+        backgroundColor: 'rgba(151, 187, 205, 0.2)',
+        borderColor: 'rgba(151, 187, 205, 1)',
+        pointBackgroundColor: 'rgba(151, 187, 205, 1)',
+        pointBorderColor: '#fff',
+        data: [50, 12, 28, 29, 7, 25, 12]
+      }
+    ]
+  }"
+/>
+```
