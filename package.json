@@ -38,7 +38,7 @@
     "test:update": "jest --coverage --updateSnapshot"
   },
   "devDependencies": {
-    "@coreui/chartjs": "^3.1.1",
+    "@coreui/chartjs": "^3.1.2",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-typescript": "^11.0.0",
@@ -61,8 +61,7 @@
     "vue-types": "^5.0.2"
   },
   "peerDependencies": {
-    "@coreui/chartjs": "^3.0.0",
-    "chart.js": "^3.7.0",
+    "chart.js": "^3.9.1",
     "vue": "^3.2.21"
   }
 }
