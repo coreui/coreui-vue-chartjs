@@ -1,65 +1,66 @@
+/* eslint-disable vue/one-component-per-file */
 import { App, defineComponent, h } from 'vue'
 import CChart from './CChart'
 
 const CChartBar = defineComponent({
-  extends: CChart,
   name: 'CChartBar',
+  extends: CChart,
   setup(props) {
     return () => h(CChart, { ...props, type: 'bar' })
   },
 })
 
 const CChartBubble = defineComponent({
-  extends: CChart,
   name: 'CChartBubble',
+  extends: CChart,
   setup(props) {
     return () => h(CChart, { ...props, type: 'bubble' })
   },
 })
 
 const CChartDoughnut = defineComponent({
-  extends: CChart,
   name: 'CChartDoughnut',
+  extends: CChart,
   setup(props) {
     return () => h(CChart, { ...props, type: 'doughnut' })
   },
 })
 
 const CChartLine = defineComponent({
-  extends: CChart,
   name: 'CChartLine',
+  extends: CChart,
   setup(props) {
     return () => h(CChart, { ...props, type: 'line' })
   },
 })
 
 const CChartPie = defineComponent({
-  extends: CChart,
   name: 'CChartPie',
+  extends: CChart,
   setup(props) {
     return () => h(CChart, { ...props, type: 'pie' })
   },
 })
 
 const CChartPolarArea = defineComponent({
-  extends: CChart,
   name: 'CChartPolarArea',
+  extends: CChart,
   setup(props) {
     return () => h(CChart, { ...props, type: 'polarArea' })
   },
 })
 
 const CChartRadar = defineComponent({
-  extends: CChart,
   name: 'CChartRadar',
+  extends: CChart,
   setup(props) {
     return () => h(CChart, { ...props, type: 'radar' })
   },
 })
 
 const CChartScatter = defineComponent({
-  extends: CChart,
   name: 'CChartScatter',
+  extends: CChart,
   setup(props) {
     return () => h(CChart, { ...props, type: 'scatter' })
   },
