@@ -8,6 +8,7 @@ import {
   PropType,
   ref,
   Ref,
+  shallowRef,
 } from 'vue'
 
 import Chart, { ChartData, ChartOptions, ChartType, Plugin } from 'chart.js/auto'
@@ -53,7 +54,7 @@ const CChart = defineComponent({
       type: String,
     },
     /**
-     * The options object that is passed into the Chart.js chart.
+     * The options object that is passed into the Chart.js chartRef.value.
      *
      * {@link https://www.chartjs.org/docs/latest/general/options.html More Info}
      */
@@ -114,9 +115,10 @@ const CChart = defineComponent({
      */
     'getElementsAtEvent',
   ],
-  setup(props, { emit, slots }) {
-    const canvasRef = ref<HTMLCanvasElement>()
-    let chart: Chart | null
+  setup(props, { expose, emit, slots }) {
+    const canvasRef = ref<HTMLCanvasElement | null>(null)
+    const chartRef = shallowRef<Chart | null>(null)
+
     const computedData = computed(() =>
       typeof props.data === 'function'
         ? canvasRef.value
@@ -135,7 +137,7 @@ const CChart = defineComponent({
         chartjs.defaults.plugins.tooltip.external = cuiCustomTooltips
       }
 
-      chart = new Chart(canvasRef.value, {
+      chartRef.value = new Chart(canvasRef.value, {
         type: props.type,
         data: computedData.value,
         options: props.options as ChartOptions,
@@ -144,44 +146,44 @@ const CChart = defineComponent({
     }
 
     const handleOnClick = (e: Event) => {
-      if (!chart) return
+      if (!chartRef.value) return
 
       emit(
         'getDatasetAtEvent',
-        chart.getElementsAtEventForMode(e, 'dataset', { intersect: true }, false),
+        chartRef.value.getElementsAtEventForMode(e, 'dataset', { intersect: true }, false),
         e,
       )
       emit(
         'getElementAtEvent',
-        chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, false),
+        chartRef.value.getElementsAtEventForMode(e, 'nearest', { intersect: true }, false),
         e,
       )
       emit(
         'getElementsAtEvent',
-        chart.getElementsAtEventForMode(e, 'index', { intersect: true }, false),
+        chartRef.value.getElementsAtEventForMode(e, 'index', { intersect: true }, false),
         e,
       )
     }
 
     const updateChart = () => {
-      if (!chart) return
+      if (!chartRef.value) return
 
       if (props.options) {
-        chart.options = { ...props.options }
+        chartRef.value.options = { ...props.options }
       }
 
-      if (!chart.config.data) {
-        chart.config.data = computedData.value
-        chart.update()
+      if (!chartRef.value.config.data) {
+        chartRef.value.config.data = computedData.value
+        chartRef.value.update()
         return
       }
 
       const { datasets: newDataSets = [], ...newChartData } = computedData.value
-      const { datasets: currentDataSets = [] } = chart.config.data
+      const { datasets: currentDataSets = [] } = chartRef.value.config.data
 
       // copy values
-      assign(chart.config.data, newChartData)
-      chart.config.data.datasets = newDataSets.map((newDataSet: any) => {
+      assign(chartRef.value.config.data, newChartData)
+      chartRef.value.config.data.datasets = newDataSets.map((newDataSet: any) => {
         // given the new set, find it's current match
         const currentDataSet = find(
           currentDataSets,
@@ -208,11 +210,11 @@ const CChart = defineComponent({
         }
       })
 
-      chart && chart.update()
+      chartRef.value && chartRef.value.update()
     }
 
     const destroyChart = () => {
-      if (chart) chart.destroy()
+      if (chartRef.value) chartRef.value.destroy()
     }
 
     onMounted(() => {
@@ -234,7 +236,7 @@ const CChart = defineComponent({
       }
     })
 
-    const canvas = (ref: Ref<HTMLCanvasElement | undefined>) =>
+    const canvas = (ref: Ref<HTMLCanvasElement | null>) =>
       h(
         'canvas',
         {
@@ -249,6 +251,8 @@ const CChart = defineComponent({
           fallbackContent: () => slots.fallback && slots.fallback(),
         },
       )
+
+    expose({ chart: chartRef })
 
     return () =>
       props.wrapper ? h('div', { class: 'chart-wrapper' }, canvas(canvasRef)) : canvas(canvasRef)
