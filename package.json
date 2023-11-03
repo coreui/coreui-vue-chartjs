@@ -62,7 +62,7 @@
     "vue-types": "^5.1.1"
   },
   "peerDependencies": {
-    "chart.js": "^3.9.1",
+    "chart.js": "^4.4.0",
     "vue": "^3.2.21"
   }
 }
