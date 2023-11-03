@@ -1,6 +1,6 @@
 {
   "name": "@coreui/vue-chartjs",
-  "version": "2.2.0",
+  "version": "3.0.0-beta.0",
   "description": "Vue component wrapper for Chart.js",
   "keywords": [
     "coreui",
@@ -24,9 +24,10 @@
   },
   "license": "MIT",
   "author": "The CoreUI Team (https://github.com/orgs/coreui/people)",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "jsnext:main": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "files": [
     "dist/",
     "src/"
