@@ -3,7 +3,9 @@ import typescript from '@rollup/plugin-typescript'
 import external from 'rollup-plugin-peer-deps-external'
 import resolve from '@rollup/plugin-node-resolve'
 import vue from 'rollup-plugin-vue'
-import pkg from './package.json'
+import { readFileSync } from 'node:fs'
+
+const pkg = JSON.parse(readFileSync(new URL('package.json', import.meta.url)))
 
 const plugins = [
   external(),
