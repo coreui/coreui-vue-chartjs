@@ -38,8 +38,10 @@
     "test:clear": "jest --clearCache",
     "test:update": "jest --coverage --updateSnapshot"
   },
+  "dependencies": {
+    "@coreui/chartjs": "^4.0.0-beta.0"
+  },
   "devDependencies": {
-    "@coreui/chartjs": "^4.0.0-beta.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.5",
