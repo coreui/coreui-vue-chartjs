@@ -39,32 +39,30 @@
     "test:update": "jest --coverage --updateSnapshot"
   },
   "dependencies": {
-    "@coreui/chartjs": "^4.0.0-beta.0"
+    "@coreui/chartjs": "^4.0.0-rc.0",
+    "chart.js": "^4.4.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.5",
-    "@types/lodash": "^4.14.200",
-    "@types/jest": "^29.5.7",
-    "@vue/test-utils": "^2.4.1",
+    "@types/lodash": "^4.14.201",
+    "@types/jest": "^29.5.8",
+    "@vue/test-utils": "^2.4.2",
     "@vue/vue3-jest": "29.2.6",
-    "chart.js": "^4.4.0",
     "jest": "^29.7.0",
     "jest-canvas-mock": "^2.5.2",
     "jest-environment-jsdom": "^29.7.0",
     "lodash": "^4.17.21",
-    "rollup": "^4.2.0",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup": "^4.4.1",
     "rollup-plugin-vue": "^6.0.0",
     "ts-jest": "^29.1.1",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
-    "vue": "^3.3.7",
+    "vue": "^3.3.8",
     "vue-types": "^5.1.1"
   },
   "peerDependencies": {
-    "chart.js": "^4.4.0",
     "vue": "^3.2.21"
   }
 }
