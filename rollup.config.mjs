@@ -1,6 +1,5 @@
 import commonjs from '@rollup/plugin-commonjs'
 import typescript from '@rollup/plugin-typescript'
-import external from 'rollup-plugin-peer-deps-external'
 import resolve from '@rollup/plugin-node-resolve'
 import vue from 'rollup-plugin-vue'
 import { readFileSync } from 'node:fs'
@@ -8,7 +7,6 @@ import { readFileSync } from 'node:fs'
 const pkg = JSON.parse(readFileSync(new URL('package.json', import.meta.url)))
 
 const plugins = [
-  external(),
   resolve({
     dedupe: ['vue'],
     extensions: ['.js', '.ts', '.json', '.vue'],
@@ -32,6 +30,7 @@ export default [
       exports: 'named',
       sourcemap: true,
     },
+    external: ['@coreui/chartjs', 'chart.js', 'vue'],
     plugins: [...plugins, vue()],
   },
   // SSR build.
@@ -43,6 +42,7 @@ export default [
       exports: 'named',
       sourcemap: true,
     },
+    external: ['@coreui/chartjs', 'chart.js', 'vue'],
     plugins: [...plugins, vue({ template: { optimizeSSR: true } })],
   },
 ]
