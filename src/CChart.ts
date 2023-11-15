@@ -12,7 +12,6 @@ import {
 } from 'vue'
 
 import Chart, { ChartData, ChartOptions, ChartType, Plugin } from 'chart.js/auto'
-import * as chartjs from 'chart.js'
 import { customTooltips as cuiCustomTooltips } from '@coreui/chartjs'
 
 import assign from 'lodash/assign'
@@ -127,20 +126,28 @@ const CChart = defineComponent({
         : merge({}, props.data),
     )
 
+    const computedOptions = computed(() =>
+      props.customTooltips
+        ? merge({}, props.options, {
+            plugins: {
+              tooltip: {
+                enabled: false,
+                mode: 'index',
+                position: 'nearest',
+                external: cuiCustomTooltips,
+              },
+            },
+          })
+        : props.options,
+    )
+
     const renderChart = () => {
       if (!canvasRef.value) return
-
-      if (props.customTooltips) {
-        chartjs.defaults.plugins.tooltip.enabled = false
-        chartjs.defaults.plugins.tooltip.mode = 'index'
-        chartjs.defaults.plugins.tooltip.position = 'nearest'
-        chartjs.defaults.plugins.tooltip.external = cuiCustomTooltips
-      }
 
       chartRef.value = new Chart(canvasRef.value, {
         type: props.type,
         data: computedData.value,
-        options: props.options as ChartOptions,
+        options: computedOptions.value,
         plugins: props.plugins,
       })
     }
