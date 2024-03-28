@@ -30,7 +30,7 @@ export default [
       exports: 'named',
       sourcemap: true,
     },
-    external: ['@coreui/chartjs', 'chart.js', 'vue'],
+    external: ['chart.js', 'vue'],
     plugins: [...plugins, vue()],
   },
   // SSR build.
@@ -42,7 +42,7 @@ export default [
       exports: 'named',
       sourcemap: true,
     },
-    external: ['@coreui/chartjs', 'chart.js', 'vue'],
+    external: ['chart.js', 'vue'],
     plugins: [...plugins, vue({ template: { optimizeSSR: true } })],
   },
 ]
